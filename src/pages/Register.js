@@ -2,28 +2,23 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [newUser, setNewUser] = useState({});
   const navigate = useNavigate();
 
-  const handleSubmit = (email, password) => {
-    setNewUser({
-      email: email,
-      password: password,
-    });
-    navigate("/");
-  };
-
-  useEffect(() => {
-    fetch("http://localhost:5000/", {
+  const handleSubmit = async(email, password) => {
+    await fetch("http://localhost:5000/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newUser),
-    });
-  }, [setNewUser]);
+      body: JSON.stringify({ email, password }),
+    })
+  
+    navigate("/");
+  };
+
 
   return (
     <div className="LoginWrapper">

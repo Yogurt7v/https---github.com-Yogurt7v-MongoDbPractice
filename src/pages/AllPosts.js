@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import "./AllPosts.css";
 
-export const AllPosts = () => {
+export const AllPosts = ({problems}) => {
 
-    const [problems, setProblems] = useState([]);
-
-    useEffect(() => {
-        fetch("http://localhost:5000/all")
-          .then((res) => res.json())
-          .then((data) => setProblems(data));
-      }, [setProblems]);
 
     return (
         <div className="AllPosts">

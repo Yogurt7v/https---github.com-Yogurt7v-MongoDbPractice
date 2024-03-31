@@ -65,3 +65,9 @@ input{
     padding: 5px;
     font-size: 16px;
 }
+
+button:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+}
