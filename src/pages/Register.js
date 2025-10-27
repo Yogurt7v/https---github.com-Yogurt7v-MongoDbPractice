@@ -1,24 +1,34 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async(email, password) => {
-    await fetch("http://localhost:5000/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-  
-    navigate("/");
-  };
+  const handleSubmit = async (email, password) => {
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
+      const data = await response.json();
+
+      if (data.success) {
+        alert('Регистрация успешна');
+        navigate('/');
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('Ошибка при регистрации:', error);
+      alert('Ошибка сервера');
+    }
+  };
 
   return (
     <div className="LoginWrapper">
@@ -27,15 +37,11 @@ export const Register = () => {
       </div>
       <div className="LoginForm">
         <div className="LoginFormItem">
-          <label for="e">Электронная почта</label>
-          <input
-            type="email"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <label htmlFor="email">Электронная почта</label>
+          <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="LoginFormItem">
-          <label for="password">Пароль</label>
+          <label htmlFor="password">Пароль</label>
           <input
             type="password"
             name="password"

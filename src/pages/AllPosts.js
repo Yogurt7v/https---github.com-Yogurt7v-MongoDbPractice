@@ -1,35 +1,32 @@
+import { Link } from 'react-router-dom';
+import './AllPosts.css';
 
-import { Link } from "react-router-dom";
-import "./AllPosts.css";
-
-export const AllPosts = ({problems}) => {
-
-
-    return (
-        <div className="AllPosts">
-            
-            <table className="table">
-                <thead className="thead-dark">
-                    <th>Дата отправки</th>
-                    <th>ФИО</th>
-                    <th>телефон</th>
-                    <th>Проблема</th>
-                </thead>
-
-                <tbody className="tbody">
-                    {problems.map((problem) => (
-                        <tr key={problem._id} className="tr">
-                            <td className="td">{problem.date}</td>
-                            <td>{problem.name}</td>
-                            <td>{problem.phone}</td>
-                            <td>{problem.problem}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <Link to="/form" className="problem">Добавить проблему</Link> 
+export const AllPosts = ({ problems }) => {
+  return (
+    <div className="AllPosts">
+      <div className="table">
+        <div className="thead-dark">
+          <div>Дата отправки</div>
+          <div>ФИО</div>
+          <div>Телефон</div>
+          <div>Проблема</div>
         </div>
-    );
-}
+        <div className="tbody">
+          {problems.map((problem) => (
+            <div key={problem._id} className="tr">
+              <div className="td">{problem.date}</div>
+              <div className="td">{problem.name}</div>
+              <div className="td">{problem.phone}</div>
+              <div className="td">{problem.problem}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Link to="/form" className="problem">
+        Добавить проблему
+      </Link>
+    </div>
+  );
+};
 
-export default AllPosts
+export default AllPosts;

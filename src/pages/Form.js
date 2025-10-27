@@ -1,39 +1,46 @@
-import { isDisabled } from "@testing-library/user-event/dist/utils";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Form = ({ problems }) => {
-  const [person, setPerson] = useState("");
-  const [phone, setPhone] = useState("");
-  const [problem, setProblem] = useState("");
+  const [person, setPerson] = useState('');
+  const [phone, setPhone] = useState('');
+  const [problem, setProblem] = useState('');
   const date = new Date();
-  const dateString = date.toLocaleDateString("ru-RU");
+  const dateString = date.toLocaleDateString('ru-RU');
   const [btnIsActive, setBtnIsActive] = useState(false);
   const navigate = useNavigate();
-  let data = null;
 
   const handleSubmit = async (dateString, person, phone, problem) => {
     setBtnIsActive(!btnIsActive);
 
-    data = {
+    const formData = {
       date: dateString,
       name: person,
       phone: phone,
       problem: problem,
     };
 
-    setPerson("");
-    setPhone("");
-    setProblem("");
-    navigate("/all");
-
-    await fetch("http://localhost:5000/form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch('http://localhost:5000/form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setPerson('');
+        setPhone('');
+        setProblem('');
+        navigate('/all');
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('Ошибка при отправке:', error);
+      alert('Ошибка сервера');
+    }
   };
 
   useEffect(() => {
@@ -48,7 +55,7 @@ export const Form = ({ problems }) => {
         </div>
         <div className="LoginFormItem">
           <div className="LoginFormItem">
-            <label for="person">ФИО</label>
+            <label htmlFor="person">ФИО</label>
             <input
               type="text"
               name="person"
@@ -57,7 +64,7 @@ export const Form = ({ problems }) => {
             />
           </div>
           <div className="LoginFormItem">
-            <label for="phone">Номер телефона</label>
+            <label htmlFor="phone">Номер телефона</label>
             <input
               type="tel"
               name="phone"
@@ -66,7 +73,7 @@ export const Form = ({ problems }) => {
             />
           </div>
           <div className="LoginFormItem">
-            <label for="problem">Опишите вашу проблему</label>
+            <label htmlFor="problem">Опишите вашу проблему</label>
             <input
               className="InputProblem"
               type="text"

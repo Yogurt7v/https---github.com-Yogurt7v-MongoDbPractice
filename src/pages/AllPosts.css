@@ -1,44 +1,98 @@
-.AllPosts{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    background: linear-gradient(to right, #00AAFF, #00FF6C);
-}
-.table{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 20px;
-}
-.thead-dark{
-    background-color: rgb(1, 71, 60);
-    border: 1px solid black;
-    padding: 10px 10px;
-    width: 100%;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.AllPosts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 100vw;
+  background: var(--background-gradient);
+  padding: 20px;
 }
 
-.problem{
-    height: 40px;
-    width: 200px;
-    background-color: rgb(1, 71, 60);
-    border: 1px solid black;
-    border-radius: 5px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    margin-top: 30px;
-    text-decoration: none;
+.table {
+  width: 100%;
+  max-width: 1200px;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.thead-dark {
+  background-color: var(--accent-color);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tbody {
+  display: flex;
+  flex-direction: column;
+}
+
+.tr {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  transition: var(--transition);
+}
+
+.tr:hover {
+  background-color: #f9f9f9;
+}
+
+.tr:last-child {
+  border-bottom: none;
+}
+
+.td {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+.problem {
+  background-color: var(--accent-color);
+  color: var(--white);
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.problem:hover {
+  background-color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .thead-dark,
+  .tr {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .td {
+    margin-bottom: 10px;
+  }
+
+  .table {
+    margin: 0 10px;
+  }
 }
